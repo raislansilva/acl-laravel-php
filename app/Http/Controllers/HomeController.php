@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\modelNotice;
+use App\User;
+use Gate;
 
 class HomeController extends Controller
 {
@@ -21,8 +24,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(modelNotice $notices)
     {
-        return view('home');
+        $notices = $notices->all(); 
+
+       // $notices = $notices->where('user_id', auth()->user()->id)->get();
+
+        return view('home',compact('notices'));
     }
+
+    public function update($idNotice){
+       
+        $notice = ModelNotice::find($idNotice);
+
+        //$this->authorize('update', $notice);
+
+         if(Gate::denies('autorizar', $notice))
+              abort(403,'unauthorized');
+          
+
+        return view('update',compact('notice'));
+    }
+
+
 }

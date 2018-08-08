@@ -21,3 +21,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard',['as'=>'site.dashboard','uses' => 'dashController@index']);
+
+Route::get('/notice/{id}/update', 'HomeController@update');
