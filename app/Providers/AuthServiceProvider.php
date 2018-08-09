@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\modelNotice;
 use App\User;
+use App\permission;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        \App\modelNotice::class => \App\Policies\noticePolicy::class,
+        //\App\modelNotice::class => \App\Policies\noticePolicy::class,
     ];
 
     /**
@@ -27,8 +28,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        /*Gate::define('autorizar', function(User $user , modelNotice $notice){
+       /* Gate::define('autorizar', function(User $user , modelNotice $notice){
             return $user->id == $notice->user_id;
         });*/
+
+        $permissions = permission::with('roles')->get();
+        
+        foreach($permissions as $permission){
+
+            Gate::define($permission->name, function(User $user) use ($permission){
+            return $user->hasPermission($permission);
+            });
+        }
     }
 }

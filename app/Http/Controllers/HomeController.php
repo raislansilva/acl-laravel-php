@@ -39,11 +39,29 @@ class HomeController extends Controller
 
         //$this->authorize('update', $notice);
 
-         if(Gate::denies('autorizar', $notice))
-              abort(403,'unauthorized');
+         /*if(Gate::denies('autorizar', $notice))
+              abort(403,'unauthorized');*/
           
 
         return view('update',compact('notice'));
+    }
+
+    public function rolePermissions(){
+        echo auth()->user()->name;
+        echo "</br>";
+
+
+        foreach(auth()->user()->roles as $role){
+            echo "$role->name ->";
+        }
+
+        $permissions = $role->permission;
+
+        
+        foreach($permissions as $permission){
+            echo "$permission->name ,";
+        }
+
     }
 
 
