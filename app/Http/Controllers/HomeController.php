@@ -26,9 +26,9 @@ class HomeController extends Controller
      */
     public function index(modelNotice $notices)
     {
-        $notices = $notices->all(); 
+         $notices = $notices->all(); 
 
-       // $notices = $notices->where('user_id', auth()->user()->id)->get();
+        //$notices = $notices->where('user_id', auth()->user()->id)->get();
 
         return view('home',compact('notices'));
     }
@@ -39,8 +39,8 @@ class HomeController extends Controller
 
         //$this->authorize('update', $notice);
 
-         /*if(Gate::denies('autorizar', $notice))
-              abort(403,'unauthorized');*/
+         if(Gate::denies('autorizar', $notice))
+              abort(403,'unauthorized');
           
 
         return view('update',compact('notice'));

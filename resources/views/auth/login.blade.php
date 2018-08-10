@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top:5%">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+            <div class="card" >
+                <div class="card-header" style="background:#3CB371; text-align: center; color:white">{{ __('Login') }}</div >
 
-                <div class="card-body">
+                <div class="card-body" style="background:#FFFFE0" >
                     <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
 
